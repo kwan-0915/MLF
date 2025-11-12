@@ -44,3 +44,16 @@ We collect fund sales datasets of different customers from Ant Fortune, which is
 Time series visualization of Fund dataset (first two lines) and public datasets is shown as follows:
 
 <img src="figure/Fund_Series_Vis.png" alt="替代文本" width="auto" height="310">
+
+
+## Reference
+```
+@inproceedings{zhang2025multi,
+  title={Multi-period learning for financial time series forecasting},
+  author={Zhang, Xu and Huang, Zhengang and Wu, Yunzhi and Lu, Xun and Qi, Erpeng and Chen, Yunkai and Xue, Zhongya and Wang, Qitong and Wang, Peng and Wang, Wei},
+  booktitle={Proceedings of the 31st ACM SIGKDD Conference on Knowledge Discovery and Data Mining V. 1},
+  pages={2848--2859},
+  year={2025}
+}
+```
+
