@@ -1,5 +1,8 @@
 ### Multi-period Learning for Financial Time Series Forecasting (MLF, KDD2025)
 
+The paper is available at the link [Paper (PDF)](https://dl.acm.org/doi/pdf/10.1145/3690624.3709422).
+
+
 #### Simple introduction
 
 This repo provides official code of Multi-period Learning for Financial Time Series Forecasting (MLF, published in KDD 2025), which incorporates multiple inputs with varying lengths (periods) to achieve better accuracy and reduces the costs of selecting input lengths during training.
@@ -22,7 +25,7 @@ The overall architecture of MLF is shown in following figure.
 The two simple but effective componments of MLF are shown in following figure. For instance, the Patch Squeeze module significantly improves efficiency
 while maintaining good accuracy in the long-term TSF task.
 
-<img src="figure/MAP_PS.jpg" alt="替代文本" width="auto" height="270">
+<img src="figure/MAP_PS.jpg" alt="替代文本" width="auto" height="260">
 
 
 ### Downloading Datasets

@@ -104,7 +104,7 @@ def main():
     args = parser.parse_args()
 
     args.speed_mode = True
-    # data_type_all = ['ETTh1', 'ETTh2', 'ETTm1', 'ETTm2', 'weather']
+    # data_type_all = ['ETTh1', 'ETTh2', 'ETTm1', 'ETTm2', 'weather','national_illness', 'exchange_rate','traffic','electricity']
     data_type = 'weather'
     pred_len_ = 720
     seed = 1986  # 2021 2023
@@ -483,7 +483,166 @@ def main():
                 pass
             args.squeeze_factor = [8 for _ in range(len(args.scal_all))]
         args.max_patch_len = args.patchLen_stride_all[-1][0]
+    elif args.data_type == 'traffic':
+        args.data_path = 'traffic.csv'
+        args.data_real='traffic'
+        args.data = 'custom'
+        args.model_id = 'traffic'
+        args.enc_in = 862
+        args.e_layers = 1  # 1
+        # args.n_heads = 16
+        args.n_heads = 8
+        args.d_model = 128
+        # args.d_model = 64
+        args.d_ff = 256
+        args.dropout = 0.2
+        args.fc_dropout = 0.2
+        args.head_dropout = 0
+        args.batch_size=24//2
+        # args.batch_size=24
+        args.learning_rate=0.0001
+        args.e_layers = 3
 
+        args.redundancy_scaling = True
+        args.activation_tag = True
+        args.patch_squeeze = True
+        args.D_norm = False
+        args.revin_norm = True
+        args.scal_all =[512, 1024, 1536]
+        args.LWI = False
+
+        args.patchLen_stride_all = []
+        args.equal_patch_len = []
+        for i, period_s in enumerate(args.scal_all):
+            args.patchLen_stride_all.append(
+                [int(period_s / args.fixed_patch_num) * args.MAP_alpha, int(period_s / args.fixed_patch_num)])
+            args.equal_patch_len.append(int(period_s / args.fixed_patch_num) * args.MAP_alpha)
+        if not args.MAP:
+            # using fixed patch length
+            args.patchLen_stride_all = [args.patchLen_stride_all[-1] for _ in range(len(args.scal_all))]
+        else:
+            # using self-adaptive patch length and stride
+            pass
+        args.squeeze_factor = [4 for _ in range(len(args.scal_all))]
+        args.max_patch_len = args.patchLen_stride_all[-1][0]
+    elif args.data_type == 'electricity':
+        args.data_path = 'electricity.csv'
+        args.data = 'custom'
+        args.model_id = 'electricity'
+        args.data_real='electricity'
+        args.enc_in = 321
+        args.e_layers = 1  # 1
+        # args.n_heads = 16
+        args.n_heads = 8
+        args.d_model = 128
+        args.d_ff = 256
+        args.dropout = 0.2
+        args.fc_dropout = 0.2
+        args.head_dropout = 0
+        args.batch_size=32
+        args.learning_rate=0.0001
+        args.e_layers = 3
+
+        args.redundancy_scaling = True
+        args.activation_tag = True
+        args.patch_squeeze = True
+        args.D_norm = False
+        args.revin_norm = True
+        args.scal_all =[512, 1024, 1536]
+        args.LWI = False
+
+        args.patchLen_stride_all = []
+        args.equal_patch_len = []
+        for i, period_s in enumerate(args.scal_all):
+            args.patchLen_stride_all.append(
+                [int(period_s / args.fixed_patch_num) * args.MAP_alpha, int(period_s / args.fixed_patch_num)])
+            args.equal_patch_len.append(int(period_s / args.fixed_patch_num) * args.MAP_alpha)
+        if not args.MAP:
+            # using fixed patch length
+            args.patchLen_stride_all = [args.patchLen_stride_all[-1] for _ in range(len(args.scal_all))]
+        else:
+            # using self-adaptive patch length and stride
+            pass
+        args.squeeze_factor = [4 for _ in range(len(args.scal_all))]
+        args.max_patch_len = args.patchLen_stride_all[-1][0]
+    elif args.data_type == 'national_illness':
+        args.data_path = 'national_illness.csv'
+        args.data = 'custom'
+        args.model_id = 'national_illness'
+        args.data_real='national_illness'
+        args.enc_in = 7
+        args.e_layers = 1  # 1
+        args.n_heads = 4
+        args.d_model = 16
+        args.d_ff = 128
+        args.dropout = 0.3
+        args.fc_dropout = 0.3
+        args.head_dropout = 0
+        args.batch_size=16
+        args.learning_rate=0.0025
+        args.e_layers = 3
+
+        args.redundancy_scaling = True
+        args.activation_tag = True
+        args.patch_squeeze = True
+        args.D_norm = False
+        args.revin_norm = True
+        args.scal_all=[[384,512, 1024]]
+        args.LWI = False
+
+        args.patchLen_stride_all = []
+        args.equal_patch_len = []
+        for i, period_s in enumerate(args.scal_all):
+            args.patchLen_stride_all.append(
+                [int(period_s / args.fixed_patch_num) * args.MAP_alpha, int(period_s / args.fixed_patch_num)])
+            args.equal_patch_len.append(int(period_s / args.fixed_patch_num) * args.MAP_alpha)
+        if not args.MAP:
+            # using fixed patch length
+            args.patchLen_stride_all = [args.patchLen_stride_all[-1] for _ in range(len(args.scal_all))]
+        else:
+            # using self-adaptive patch length and stride
+            pass
+        args.squeeze_factor = [4 for _ in range(len(args.scal_all))]
+        args.max_patch_len = args.patchLen_stride_all[-1][0]
+    elif args.data_type == 'exchange_rate':
+        args.data_path = 'exchange_rate.csv'
+        args.data = 'custom'
+        args.model_id = 'exchange_rate'
+        args.data_real='exchange_rate'
+        args.enc_in = 8
+        args.e_layers = 1  # 1
+        args.n_heads = 4
+        args.d_model = 128
+        args.d_ff = 128
+        args.dropout = 0.3
+        args.fc_dropout = 0.3
+        args.head_dropout = 0
+        args.batch_size=32
+        args.learning_rate=0.0025
+        args.e_layers = 3
+
+        args.redundancy_scaling = True
+        args.activation_tag = True
+        args.patch_squeeze = True
+        args.D_norm = False
+        args.revin_norm = True
+        args.scal_all=[[384,512, 1024]]
+        args.LWI = False
+
+        args.patchLen_stride_all = []
+        args.equal_patch_len = []
+        for i, period_s in enumerate(args.scal_all):
+            args.patchLen_stride_all.append(
+                [int(period_s / args.fixed_patch_num) * args.MAP_alpha, int(period_s / args.fixed_patch_num)])
+            args.equal_patch_len.append(int(period_s / args.fixed_patch_num) * args.MAP_alpha)
+        if not args.MAP:
+            # using fixed patch length
+            args.patchLen_stride_all = [args.patchLen_stride_all[-1] for _ in range(len(args.scal_all))]
+        else:
+            # using self-adaptive patch length and stride
+            pass
+        args.squeeze_factor = [4 for _ in range(len(args.scal_all))]
+        args.max_patch_len = args.patchLen_stride_all[-1][0]
     args.learning_rate = 1e-4
     args.batch_size = 32 * 4
     args.is_training = True
